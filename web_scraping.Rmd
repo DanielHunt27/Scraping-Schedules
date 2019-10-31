@@ -3,6 +3,7 @@ title: "web_scraping"
 output: html_document
 ---
 
+Include all of the libraries we will need.
 ```{r, results='hide', message=FALSE}
 include <- function(library_name){
   if( !(library_name %in% installed.packages()) )
@@ -13,6 +14,7 @@ include("rvest")
 include("tidyr")
 ```
 
+create a function that will take in a url and return a nibble with the semester, year, class number, section, title, and enrollment.
 ```{r}
 read_class_schedule <- function(url) {
   schedule_html <- read_html(url)
@@ -38,6 +40,7 @@ read_class_schedule <- function(url) {
 }
 ```
 
+Use the above function to create tables for the 2019 and 2020 CSCI and MATH classes.
 ```{r}
 cscis2019 <- read_class_schedule("http://ems.csuchico.edu/APSS/schedule/spr2019/CSCI.shtml")
 cscis2020 <- read_class_schedule("http://ems.csuchico.edu/APSS/schedule/spr2020/CSCI.shtml")
@@ -45,6 +48,7 @@ maths2019 <- read_class_schedule("http://ems.csuchico.edu/APSS/schedule/spr2019/
 maths2020 <- read_class_schedule("http://ems.csuchico.edu/APSS/schedule/spr2020/MATH.shtml")
 ```
 
+Combine all of the above tables into a single table.
 ```{r}
 all_tables <- rbind(cscis2019, cscis2020, maths2019, maths2020)
 ```
